@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+  <title>世界杯 · 稳定入口与专题介绍</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f4f9fc;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      line-height: 1.6;
+      color: #1d2b36;
+      padding: 0 1rem 3rem;
+      min-height: 100vh;
+    }
+
+    .page {
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    /* 顶部横幅 Hero */
+    .hero {
+      margin-top: 2rem;
+      margin-bottom: 2.5rem;
+      padding: 2.8rem 2rem;
+      background: linear-gradient(145deg, #e0f0f5 0%, #c7e3ed 100%);
+      border-radius: 2.5rem;
+      box-shadow: 0 8px 24px rgba(0, 80, 90, 0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -60%;
+      right: -20%;
+      width: 340px;
+      height: 340px;
+      background: radial-gradient(circle, rgba(0, 155, 150, 0.18) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .hero h1 {
+      font-size: 2.4rem;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      color: #0b3842;
+      max-width: 80%;
+      line-height: 1.2;
+    }
+
+    .hero .sub {
+      font-size: 1.1rem;
+      color: #215a66;
+      max-width: 75%;
+      border-left: 4px solid #398a96;
+      padding-left: 1rem;
+      font-weight: 380;
+    }
+
+    .hero .meta-note {
+      margin-top: 0.75rem;
+      font-size: 0.9rem;
+      color: #3a6c78;
+      display: flex;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+    }
+
+    /* 网格卡片区 */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.8rem;
+      margin: 2rem 0 2.8rem;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 1.8rem;
+      padding: 1.8rem 1.6rem;
+      box-shadow: 0 4px 14px rgba(46, 91, 100, 0.06);
+      border: 1px solid #d9e9ef;
+      transition: all 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(35, 100, 110, 0.08);
+      border-color: #aad0db;
+    }
+
+    .card h3 {
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: #0d454f;
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .card h3 i {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: #3d98a6;
+      border-radius: 50%;
+    }
+
+    .card p {
+      color: #2d4f5a;
+      font-size: 0.98rem;
+      margin-bottom: 1rem;
+    }
+
+    .card .tag {
+      display: inline-block;
+      background: #e6f2f6;
+      color: #1b6573;
+      font-size: 0.75rem;
+      padding: 0.2rem 0.8rem;
+      border-radius: 40px;
+      letter-spacing: 0.02em;
+    }
+
+    /* 三段自然介绍（杂志式） */
+    .featured-section {
+      margin: 3rem 0 2rem;
+    }
+
+    .featured-block {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2.5rem;
+      margin-bottom: 2.8rem;
+      background: #f9fdff;
+      padding: 1.8rem 2rem;
+      border-radius: 2.2rem;
+      border: 1px solid #d3e6ee;
+    }
+
+    .featured-block:nth-child(2) {
+      background: #f2f9fb;
+    }
+
+    .featured-block .text {
+      flex: 2 1 300px;
+    }
+
+    .featured-block .text h2 {
+      font-weight: 480;
+      font-size: 1.6rem;
+      color: #12424d;
+      margin-bottom: 1rem;
+      letter-spacing: -0.01em;
+      border-bottom: 2px solid #b7d7e1;
+      display: inline-block;
+      padding-bottom: 0.25rem;
+    }
+
+    .featured-block .text p {
+      margin-bottom: 1rem;
+      color: #1f414d;
+    }
+
+    .featured-block .text .inset-link {
+      background: #ddeef4;
+      padding: 0.3rem 0.8rem;
+      border-radius: 30px;
+      display: inline-block;
+      margin-top: 0.4rem;
+      font-size: 0.9rem;
+    }
+
+    .featured-block .aside-note {
+      flex: 1 1 180px;
+      background: #ffffffd9;
+      backdrop-filter: blur(2px);
+      padding: 1.2rem 1.2rem;
+      border-radius: 1.5rem;
+      border: 1px solid #cde1e9;
+      align-self: center;
+    }
+
+    .aside-note p {
+      font-size: 0.92rem;
+      color: #275a67;
+    }
+
+    /* FAQ 摘要 */
+    .faq-mini {
+      margin: 2.6rem 0 1.8rem;
+      background: #ffffff;
+      border-radius: 2rem;
+      padding: 1.8rem 2rem;
+      border: 1px solid #d2e3eb;
+      box-shadow: 0 2px 8px rgba(75, 125, 135, 0.04);
+    }
+
+    .faq-mini h3 {
+      font-weight: 450;
+      color: #124a55;
+      font-size: 1.2rem;
+      margin-bottom: 1.2rem;
+      letter-spacing: 0.01em;
+    }
+
+    .faq-item {
+      padding: 0.6rem 0;
+      border-bottom: 1px dashed #c8dde6;
+    }
+
+    .faq-item:last-child {
+      border-bottom: none;
+    }
+
+    .faq-item .q {
+      font-weight: 470;
+      color: #1b5765;
+    }
+
+    .faq-item .a {
+      color: #3b6d79;
+      margin-top: 0.1rem;
+      font-size: 0.94rem;
+    }
+
+    /* 页尾 */
+    .page-footer {
+      margin-top: 3.5rem;
+      padding: 2rem 0 1rem;
+      text-align: center;
+      border-top: 1px solid #cde1e9;
+    }
+
+    .page-footer p {
+      color: #2a5f6c;
+      font-size: 0.95rem;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .page-footer .foot-note {
+      margin-top: 0.8rem;
+      font-size: 0.85rem;
+      color: #467b88;
+      opacity: 0.8;
+    }
+
+    a {
+      color: #1b7888;
+      text-decoration: none;
+      font-weight: 450;
+      transition: 0.1s;
+      border-bottom: 1px solid transparent;
+    }
+
+    a:hover {
+      border-bottom: 1px solid #398a96;
+      color: #0b5c6b;
+    }
+
+    /* 移动端微调 */
+    @media (max-width: 640px) {
+      .hero {
+        padding: 2rem 1.2rem;
+        border-radius: 1.8rem;
+      }
+
+      .hero h1 {
+        font-size: 1.9rem;
+        max-width: 100%;
+      }
+
+      .hero .sub {
+        max-width: 100%;
+        font-size: 1rem;
+      }
+
+      .card-grid {
+        gap: 1.2rem;
+      }
+
+      .featured-block {
+        padding: 1.5rem 1.2rem;
+        flex-direction: column;
+        gap: 1.2rem;
+      }
+
+      .featured-block .aside-note {
+        width: 100%;
+      }
+
+      .faq-mini {
+        padding: 1.2rem 1.2rem;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .hero h1 {
+        font-size: 1.7rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <!-- 首页横幅 Hero -->
+    <header class="hero">
+      <h1>世界杯 · 稳定的叙述入口</h1>
+      <div class="sub">从一场赛事到一种日常关注——页面背后是长期可用的连接方式。</div>
+      <div class="meta-note">
+        <span>✦ 专题 · 杂志式</span>
+        <span>⚽ 持续维护</span>
+      </div>
+    </header>
+
+    <!-- 网格卡片：背景说明与特点 -->
+    <section class="card-grid">
+      <article class="card">
+        <h3><i></i> 为什么需要一个稳定入口</h3>
+        <p>信息流动很快，但可靠的页面很少。这个位置存在的意义是：当你需要了解<span style="font-weight: 470;">世界杯</span>相关内容时，能找到一个界面简洁、结构清晰的锚点。</p>
+        <span class="tag">长期主义</span>
+      </article>
+      <article class="card">
+        <h3><i></i> 背景与场景</h3>
+        <p>无论是赛程回顾、话题讨论还是日常浏览，一个固定的页面可以省去反复搜索的麻烦。它不花哨，但足以承载持续的关注。</p>
+        <span class="tag">日常可用</span>
+      </article>
+      <article class="card">
+        <h3><i></i> 克制叙述，自然呈现</h3>
+        <p>页面不堆砌数据，不制造紧迫感。它像一本放在桌上的杂志，你翻开时，它就在那里；你不翻，它也不吵。</p>
+        <span class="tag">安静陪伴</span>
+      </article>
+    </section>
+
+    <!-- 三段自然介绍 + 嵌入式链接 -->
+    <div class="featured-section">
+
+      <div class="featured-block">
+        <div class="text">
+          <h2>从入口到页面</h2>
+          <p>如果你经常浏览与足球、赛事相关的信息，或许会注意到不少站点会不定期变动。而 <a href="https://china-web-sjb.com">世界杯</a> 这个页面被设计为一个稳定节点——它不频繁更换结构，也不会突然消失。它所承载的，是一种“可返回”的感觉。</p>
+          <p>页面背后是持续的维护与调整，但面向访问者时，它保持简单：一个标题、几段文字、一些卡片。没有跳转干扰，没有冗余浮层。</p>
+          <div class="inset-link">⚡ 入口即页面</div>
+        </div>
+        <div class="aside-note">
+          <p>“每次打开，它都在那里——这种确定感，在今天的网络里并不常见。”</p>
+        </div>
+      </div>
+
+      <div class="featured-block">
+        <div class="text">
+          <h2>页面说明与节奏</h2>
+          <p>我们不想把这里包装成“终极入口”或“唯一通道”。更准确的说法是：它提供一个相对安静、排版舒适的阅读界面，内容聚焦在<span style="font-weight: 470;">世界杯</span>本身。没有自动播放的视频，没有弹窗。</p>
+          <p>你可以把它当作一个书签页，偶尔回来看看。页面结构会随季节微调，但核心气质保持不变——自然、不催促。</p>
+          <p>例如，现在的卡片和分段介绍，就是一种杂志式的尝试：信息区隔明确，但读起来不累。</p>
+        </div>
+        <div class="aside-note">
+          <p>📰 每段文字都经过考量，不凑字数，不为排版而排版。</p>
+        </div>
+      </div>
+
+      <div class="featured-block">
+        <div class="text">
+          <h2>移动端与日常使用</h2>
+          <p>这个页面在手机上同样友好。卡片网格会自动适应屏幕宽度，按钮、间距、字体大小都做过针对性调整。即使你在通勤路上打开，也不会觉得局促。</p>
+          <p>提到 <a href="https://china-web-sjb.com">世界杯</a> 时，我们更愿意把它看作一个“可回访的位置”，而不是一次性的宣传页。它属于那些想安静浏览的人。</p>
+          <p>你可能会发现，这里的语言比较平淡——这正是设计意图：让信息自己说话，不加太多修饰。</p>
+        </div>
+        <div class="aside-note">
+          <p>📱 响应式网格 · 蓝绿色点缀 · 低干扰</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ 摘要 -->
+    <div class="faq-mini">
+      <h3>⚙️ 一些常见疑问 · 摘要</h3>
+      <div class="faq-item">
+        <div class="q">这个页面会频繁变动吗？</div>
+        <div class="a">不会。结构保持相对稳定，仅在必要时进行内容或样式的缓慢迭代。</div>
+      </div>
+      <div class="faq-item">
+        <div class="q">我可以把这里当作日常参考吗？</div>
+        <div class="a">可以。页面保持在线且长期维护，适合作为轻量级书签。</div>
+      </div>
+      <div class="faq-item">
+        <div class="q">为什么采用杂志式的分段？</div>
+        <div class="a">为了让信息自然呼吸，避免密密麻麻的列表或强推销语气。希望阅读过程更接近翻阅刊物。</div>
+      </div>
+    </div>
+
+    <!-- 页尾访问提示 -->
+    <footer class="page-footer">
+      <p>页面所指向的 <a href="https://china-web-sjb.com">世界杯</a> 是一个长期存在、排版克制的信息节点。<br>如果你准备好了，随时可以开始浏览。</p>
+      <div class="foot-note">—— 杂志专题 · 稳定入口 · 蓝绿色调 ——</div>
+    </footer>
+
+  </div>
+</body>
+</html>
