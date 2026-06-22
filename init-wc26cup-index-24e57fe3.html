@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>世界杯 · 站点介绍 | init-wc26cup</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: linear-gradient(145deg, #ffedd5 0%, #fde7c4 40%, #fbd8b0 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2.4rem 1.2rem 3.6rem;
+      line-height: 1.6;
+      color: #3d2c1e;
+    }
+
+    .page-wrapper {
+      max-width: 1100px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    /* 主视觉卡片 — 暖白圆角 */
+    .hero-card {
+      background: #fffcf7;
+      border-radius: 2.4rem;
+      padding: 2.8rem 2.6rem;
+      box-shadow: 0 16px 32px -8px rgba(180, 110, 50, 0.18), 0 6px 14px rgba(0, 0, 0, 0.03);
+      text-align: center;
+      transition: box-shadow 0.25s ease;
+    }
+
+    .hero-card:hover {
+      box-shadow: 0 20px 40px -10px rgba(160, 95, 40, 0.20);
+    }
+
+    .hero-title {
+      font-size: 2.6rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #b76a2c, #8f4e1e);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.6rem;
+    }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      color: #6d4f33;
+      max-width: 680px;
+      margin: 0 auto 1.2rem;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: #f3e1cc;
+      padding: 0.3rem 1.2rem;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      color: #5f3f24;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+    }
+
+    /* 卡片网格 */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.6rem;
+    }
+
+    .info-card {
+      background: #fffcf7;
+      border-radius: 1.8rem;
+      padding: 1.8rem 1.6rem 2rem;
+      box-shadow: 0 8px 20px -6px rgba(140, 80, 30, 0.10);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .info-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 28px -10px rgba(130, 75, 25, 0.14);
+    }
+
+    .card-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #7a4f2b;
+      margin-bottom: 0.7rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .card-title i {
+      font-style: normal;
+      background: #eee3d5;
+      border-radius: 30px;
+      padding: 0 0.45rem;
+      font-size: 0.9rem;
+    }
+
+    .card-text {
+      font-size: 0.98rem;
+      color: #3f2f1f;
+    }
+
+    .card-text p + p {
+      margin-top: 0.7rem;
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 0.6rem;
+      margin-top: 0.8rem;
+    }
+
+    .tag {
+      background: #ede0d0;
+      color: #4f3822;
+      padding: 0.2rem 0.85rem;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    /* 自然链接段落 + 按钮感链接 */
+    .link-paragraph {
+      background: #fffcf7;
+      border-radius: 1.8rem;
+      padding: 1.8rem 2rem;
+      box-shadow: 0 8px 20px -6px rgba(140, 80, 30, 0.08);
+      font-size: 1rem;
+      color: #3d2c1e;
+    }
+
+    .link-paragraph a {
+      display: inline-block;
+      background: #c5854a;
+      color: #fff9f2;
+      text-decoration: none;
+      font-weight: 550;
+      padding: 0.2rem 1rem 0.3rem;
+      border-radius: 40px;
+      font-size: 0.95rem;
+      letter-spacing: 0.3px;
+      transition: background 0.2s, transform 0.15s;
+      box-shadow: 0 2px 6px rgba(150, 80, 25, 0.10);
+    }
+
+    .link-paragraph a:hover {
+      background: #a86f3a;
+      transform: scale(1.02);
+      box-shadow: 0 4px 12px rgba(140, 75, 25, 0.18);
+    }
+
+    .link-paragraph a:active {
+      transform: scale(0.98);
+    }
+
+    /* 辅助摘要区 (FAQ风格) */
+    .faq-mini {
+      background: #fffcf7;
+      border-radius: 2rem;
+      padding: 1.8rem 2rem;
+      box-shadow: 0 8px 18px -6px rgba(130, 75, 25, 0.08);
+    }
+
+    .faq-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+
+    .faq-item + .faq-item {
+      margin-top: 1.2rem;
+      padding-top: 1rem;
+      border-top: 1px solid #eadaca;
+    }
+
+    .faq-q {
+      font-weight: 600;
+      color: #6f4b2a;
+      font-size: 1.02rem;
+    }
+
+    .faq-a {
+      font-size: 0.94rem;
+      color: #4f3a26;
+    }
+
+    .footnote {
+      text-align: center;
+      font-size: 0.85rem;
+      color: #7a624b;
+      margin-top: 0.6rem;
+      opacity: 0.85;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid #e3cfbb;
+      margin: 0.8rem 0;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 1.4rem 0.9rem 2.6rem;
+      }
+      .hero-card {
+        padding: 2rem 1.4rem;
+      }
+      .hero-title {
+        font-size: 2rem;
+      }
+      .link-paragraph {
+        padding: 1.4rem 1.2rem;
+      }
+      .card-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+
+    <!-- 主视觉 -->
+    <div class="hero-card">
+      <div class="hero-title">⚽ 世界杯 · 信息指引</div>
+      <p class="hero-sub">针对 init-wc26cup.com 的整理说明卡片 —— 清晰、平实，帮助你快速了解站点背景与用途。</p>
+      <span class="hero-badge">📌 可信说明页 · 内容持续更新</span>
+    </div>
+
+    <!-- 卡片网格：用途卡片 + 适合人群 -->
+    <div class="card-grid">
+
+      <div class="info-card">
+        <div class="card-title">📋 站点定位</div>
+        <div class="card-text">
+          <p>init-wc26cup 是一个围绕世界杯相关内容整理的信息聚合站点。不涉及投注、博彩或任何违规服务，仅提供赛事背景、历史资料与观赛辅助信息。</p>
+          <p>站点内容由编辑团队根据公开资料整理，力求中立、客观。</p>
+        </div>
+        <div class="tag-list">
+          <span class="tag">赛事资料</span>
+          <span class="tag">背景整理</span>
+          <span class="tag">非官方</span>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <div class="card-title">🧑‍🤝‍🧑 适合人群</div>
+        <div class="card-text">
+          <p>• 希望系统了解世界杯历届信息的球迷<br>
+          • 需要快速查阅赛制、举办地等基础资料的爱好者<br>
+          • 对足球文化感兴趣、想要一份简洁参考页的浏览者</p>
+          <p>内容偏向普及向，不预设专业门槛。</p>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <div class="card-title">🔄 内容特点</div>
+        <div class="card-text">
+          <p>✔ 按届次 / 年份整理关键信息，结构清晰<br>
+          ✔ 每部分附有简短背景说明，便于理解上下文<br>
+          ✔ 页面无强制弹窗、无诱导分享，浏览体验干净</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 自然链接段落（包含必须的 世界杯 a标签） -->
+    <div class="link-paragraph">
+      <p style="margin-bottom: 0.5rem;">
+        如果你正在寻找一份关于世界杯的综合性参考页面，不妨直接浏览 
+        <a href="https://init-wc26cup.com">世界杯</a> 
+        专题内容。该页面整合了历届赛事概览、主办城市与标志性瞬间，适合快速查阅或作为观赛背景补充。站点本身保持低干扰、高可读性，没有冗余营销信息。
+      </p>
+      <p style="margin-top: 0.5rem;">
+        从 1930 年初创到近几届的扩军改制，不同年代的世界杯都留下了独特的文化印记。init-wc26cup 的编辑团队努力将这些碎片梳理成平实的条目，让浏览者能按自己的节奏了解。
+      </p>
+    </div>
+
+    <!-- 场景卡片 / 补充卡片 (额外差异化) -->
+    <div class="card-grid" style="margin-top: 0.2rem;">
+      <div class="info-card">
+        <div class="card-title">🌍 场景参考</div>
+        <div class="card-text">
+          <p>• 赛前预习：快速浏览某届世界杯的参赛队、赛制与决赛信息<br>
+          • 闲聊谈资：查阅经典对决或冷门知识，丰富看球话题<br>
+          • 资料收集：作为基础时间线参考，配合其他深度文章使用</p>
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="card-title">🔍 可信说明</div>
+        <div class="card-text">
+          <p>本站所有内容均基于公开资料整理，并标注了引用来源（如有）。不虚构数据，不夸大事实。页面内不含任何形式的博彩链接或诱导注册。</p>
+          <p>如有疏漏或建议，可通过站点提供的联系渠道反馈。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ 摘要风格卡片 -->
+    <div class="faq-mini">
+      <div style="font-weight: 600; font-size: 1.1rem; color: #6a472b; margin-bottom: 0.8rem;">❓ 常见疑问摘要</div>
+      <div class="faq-item">
+        <div class="faq-q">这个站点是世界杯官方网站吗？</div>
+        <div class="faq-a">不是。init-wc26cup 是一个独立的资料整理站点，与 FIFA 或任何官方机构无关。所有信息仅供个人参考。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">内容多久更新一次？</div>
+        <div class="faq-a">主要赛事节点（如抽签、赛程发布）后会有对应更新。日常维护频率不定，但会尽量保持信息准确。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">我可以引用站内的数据吗？</div>
+        <div class="faq-a">可以。但建议交叉核对官方来源，因为本站内容虽经整理，但仍可能存在疏漏。</div>
+      </div>
+    </div>
+
+    <!-- 分隔小提示 -->
+    <hr>
+    <div class="footnote">
+      本页为介绍说明，内容真实克制 · 不含有任何诱导或误导性表述
+    </div>
+
+  </div>
+</body>
+</html>
