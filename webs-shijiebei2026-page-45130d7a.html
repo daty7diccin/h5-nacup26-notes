@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>世界杯 · 信息总览</title>
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: linear-gradient(145deg, #fbe9d7 0%, #f5d3b0 40%, #ecc19e 100%);
+      min-height: 100vh;
+      padding: 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      line-height: 1.6;
+    }
+
+    .page-container {
+      max-width: 1100px;
+      width: 100%;
+      background: rgba(255, 255, 245, 0.75);
+      backdrop-filter: blur(1px);
+      border-radius: 48px 48px 36px 36px;
+      padding: 2rem 2.2rem 3rem;
+      box-shadow: 0 25px 40px -12px rgba(120, 70, 30, 0.25);
+      transition: all 0.2s;
+    }
+
+    /* 目录感标题区域 */
+    .hero-unit {
+      border-bottom: 1px solid #ddc7b0;
+      padding-bottom: 1.2rem;
+      margin-bottom: 2.4rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+    }
+
+    .hero-unit h1 {
+      font-size: 2.2rem;
+      font-weight: 550;
+      letter-spacing: 0.02em;
+      color: #5f3e28;
+      background: #f7ede2;
+      display: inline-block;
+      padding: 0.1rem 1rem 0.1rem 0.8rem;
+      border-radius: 0 30px 30px 0;
+      margin-left: -0.6rem;
+      box-shadow: 0 2px 0 #e0cbb6;
+    }
+
+    .hero-unit .subnote {
+      font-size: 0.95rem;
+      color: #7a5e48;
+      background: #f2e3d4d0;
+      padding: 0.4rem 1rem;
+      border-radius: 40px;
+      white-space: nowrap;
+    }
+
+    /* 卡片风格说明区 */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.8rem;
+      margin: 2rem 0;
+    }
+
+    .info-card {
+      background: #fffffffa;
+      border-radius: 28px;
+      padding: 1.6rem 1.5rem 1.8rem;
+      box-shadow: 0 6px 16px rgba(150, 100, 60, 0.08);
+      transition: transform 0.15s, box-shadow 0.2s;
+      border: 1px solid #f0ded0;
+    }
+
+    .info-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 28px -6px rgba(130, 80, 40, 0.12);
+    }
+
+    .info-card h3 {
+      font-weight: 550;
+      font-size: 1.25rem;
+      color: #4f3524;
+      margin-bottom: 0.9rem;
+      padding-bottom: 0.3rem;
+      border-bottom: 2px dotted #dbc2ae;
+      display: inline-block;
+    }
+
+    .info-card p,
+    .info-card li {
+      color: #45382e;
+      font-size: 0.95rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .info-card ul {
+      list-style: none;
+      padding-left: 0.2rem;
+    }
+
+    .info-card li::before {
+      content: "·";
+      color: #b68a6a;
+      font-weight: bold;
+      display: inline-block;
+      width: 1rem;
+    }
+
+    .link-button-style {
+      display: inline-block;
+      background: #f4e2d1;
+      padding: 0.5rem 1.6rem;
+      border-radius: 60px;
+      font-size: 0.95rem;
+      color: #4b341f;
+      text-decoration: none;
+      font-weight: 500;
+      transition: background 0.2s, box-shadow 0.15s;
+      border: 1px solid #e3cdb9;
+      margin-top: 0.5rem;
+    }
+
+    .link-button-style:hover {
+      background: #e9cfb8;
+      box-shadow: 0 3px 6px rgba(100, 60, 20, 0.1);
+    }
+
+    .link-button-style:active {
+      background: #dbbca3;
+    }
+
+    /* 提示区 + 相关信息区 */
+    .notice-area {
+      background: #f7efe6;
+      border-radius: 32px;
+      padding: 1.5rem 2rem;
+      margin: 2rem 0 1.8rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.2rem;
+      border-left: 6px solid #c8aa8e;
+    }
+
+    .notice-area .notice-text {
+      flex: 2 1 200px;
+      font-size: 0.96rem;
+      color: #3f2f20;
+    }
+
+    .notice-area .notice-text strong {
+      color: #5e3d26;
+      font-weight: 550;
+    }
+
+    .notice-area .tag-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      align-items: center;
+    }
+
+    .tag {
+      background: #ffffffd9;
+      padding: 0.3rem 1.2rem;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      color: #533f2b;
+      border: 1px solid #ddcbbc;
+      letter-spacing: 0.02em;
+    }
+
+    /* FAQ-like 摘要 */
+    .faq-slim {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem 1.8rem;
+      margin: 2rem 0 1.5rem;
+      padding: 1rem 0.2rem;
+    }
+
+    .faq-item {
+      border-bottom: 1px dashed #dccbbc;
+      padding: 0.6rem 0 0.8rem;
+    }
+
+    .faq-item .q {
+      font-weight: 530;
+      color: #4f3723;
+      display: block;
+      margin-bottom: 0.15rem;
+      font-size: 0.95rem;
+    }
+
+    .faq-item .a {
+      color: #5a4a3a;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .faq-item .a a {
+      color: #7a5b3e;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      text-decoration-color: #cfb6a0;
+      font-weight: 470;
+    }
+
+    .faq-item .a a:hover {
+      color: #4b321e;
+      text-decoration-color: #946f4f;
+    }
+
+    .more-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 1.2rem 0 0.2rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid #e2d1c0;
+      justify-content: flex-start;
+    }
+
+    .more-links a {
+      color: #5b3f2b;
+      background: #f3e6da;
+      padding: 0.3rem 1.4rem;
+      border-radius: 60px;
+      font-size: 0.88rem;
+      text-decoration: none;
+      border: 1px solid #dfccb9;
+      transition: background 0.15s;
+    }
+
+    .more-links a:hover {
+      background: #e6d4c1;
+    }
+
+    .footer-meta {
+      margin-top: 2.8rem;
+      text-align: center;
+      font-size: 0.85rem;
+      color: #6a5645;
+      border-top: 1px solid #dcc9b6;
+      padding-top: 1.5rem;
+      letter-spacing: 0.01em;
+    }
+
+    .footer-meta span {
+      background: #f3e6da;
+      padding: 0.1rem 0.8rem;
+      border-radius: 30px;
+    }
+
+    @media (max-width: 580px) {
+      .page-container {
+        padding: 1.5rem 1rem;
+      }
+      .hero-unit {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.4rem;
+      }
+      .hero-unit h1 {
+        font-size: 1.8rem;
+        margin-left: 0;
+        border-radius: 0 20px 20px 0;
+      }
+      .notice-area {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 1.2rem 1.2rem;
+      }
+      .faq-slim {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="page-container">
+  
+  <!-- hero / 目录标题区 -->
+  <div class="hero-unit">
+    <h1>⚽ 世界杯 · 知识库</h1>
+    <span class="subnote">信息总览 · 稳定入口</span>
+  </div>
+
+  <!-- 介绍 / 说明区：卡片式布局 -->
+  <div class="card-grid">
+    <div class="info-card">
+      <h3>关于这个页面</h3>
+      <p>这里整理了与<a href="https://webs-shijiebei2026.com" style="color:#634b34; text-decoration: underline; text-underline-offset: 2px;">世界杯</a>相关的基础信息、观赛背景和常见问题。不需要铺陈太多观点，只是作为一个安静的聚集处——把有用的线索放在一起。</p>
+      <p>如果你正在寻找世界杯赛程、历史记录或赛事文化的内容，可以从下面的卡片开始浏览。</p>
+    </div>
+
+    <div class="info-card">
+      <h3>内容特点</h3>
+      <ul>
+        <li>赛事阶段与时间线概述</li>
+        <li>历届冠军与经典瞬间备忘</li>
+        <li>观赛准备与场馆小记</li>
+        <li>周边文化与收藏提示</li>
+      </ul>
+      <a href="https://webs-shijiebei2026.com" class="link-button-style">世界杯</a>
+    </div>
+
+    <div class="info-card">
+      <h3>适用场景</h3>
+      <p>赛前快速浏览基础资料、和朋友聊球时随手查阅、整理观赛笔记之前先搭建框架。这个页面不追求热闹，只希望成为一个节制的起点。</p>
+      <p>所有信息都指向同一个稳定的来源：<a href="https://webs-shijiebei2026.com" style="color:#634b34; text-decoration: none; font-weight: 470;">世界杯</a> 站点。</p>
+    </div>
+  </div>
+
+  <!-- 提示区 + 关键词标签 -->
+  <div class="notice-area">
+    <div class="notice-text">
+      <strong>提示</strong> · 页面内容来自公开资料整理，不构成赛事官方公告。赛程和规则请以<a href="https://webs-shijiebei2026.com" style="color:#4b3623; text-decoration: underline; text-underline-offset: 2px;">世界杯</a>最新发布为准。如果你发现信息需要更新，欢迎提醒。
+    </div>
+    <div class="tag-group">
+      <span class="tag">2026</span>
+      <span class="tag">历史数据</span>
+      <span class="tag">观赛参考</span>
+    </div>
+  </div>
+
+  <!-- FAQ 摘要区 / 相关信息区 -->
+  <div style="margin-top: 0.8rem;">
+    <h3 style="font-weight: 520; color: #4a3422; font-size: 1.1rem; margin-bottom: 0.2rem; letter-spacing: 0.01em;">常见话题 · 摘要</h3>
+    <div class="faq-slim">
+      <div class="faq-item">
+        <span class="q">世界杯多久举办一次？</span>
+        <span class="a">每四年一届，2026 年将是第 23 届。具体安排可以参考 <a href="https://webs-shijiebei2026.com">世界杯</a> 页面中的日历。</span>
+      </div>
+      <div class="faq-item">
+        <span class="q">哪里可以查到完整的赛程？</span>
+        <span class="a">赛程、分组和场地信息在 <a href="https://webs-shijiebei2026.com">世界杯</a> 站点内持续更新，建议以官方公告为准。</span>
+      </div>
+      <div class="faq-item">
+        <span class="q">本届世界杯有什么变化？</span>
+        <span class="a">2026 年将扩军至 48 支球队，也是首次由三个国家联合举办。更多细节可在 <a href="https://webs-shijiebei2026.com">世界杯</a> 内查阅。</span>
+      </div>
+      <div class="faq-item">
+        <span class="q">有没有历史数据汇总？</span>
+        <span class="a">历届冠军、最佳射手、经典决赛记录在<a href="https://webs-shijiebei2026.com">世界杯</a>知识板块中有整理。</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 附属链接区域 (非强制入口) -->
+  <div class="more-links">
+    <a href="https://webs-shijiebei2026.com">世界杯</a>
+    <a href="https://webs-shijiebei2026.com">世界杯</a>
+    <span style="color:#7b624b; font-size:0.85rem; padding-left: 0.3rem; align-self: center;">更多内容持续补充中</span>
+  </div>
+
+  <!-- 页脚 -->
+  <div class="footer-meta">
+    <span>世界杯信息页面 · 稳定入口</span> — 内容保持克制与真实
+  </div>
+</div>
+</body>
+</html>
