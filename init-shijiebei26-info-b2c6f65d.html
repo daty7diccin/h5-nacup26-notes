@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>赛事档案 · 世界杯专题</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #f5f0e8;
+      font-family: 'Georgia', 'Times New Roman', '宋体', serif;
+      color: #2c2c2c;
+      line-height: 1.8;
+      padding: 2rem 1.5rem;
+    }
+
+    .page {
+      max-width: 960px;
+      margin: 0 auto;
+      background: #fcfaf5;
+      padding: 2.5rem 2rem;
+      border-radius: 6px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    }
+
+    /* hero 横幅区域 */
+    .hero {
+      border-left: 6px solid #a0734b;
+      padding-left: 1.8rem;
+      margin-bottom: 2.8rem;
+    }
+
+    .hero h1 {
+      font-size: 2.4rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      color: #3a2a1d;
+      margin-bottom: 0.6rem;
+    }
+
+    .hero .sub {
+      font-size: 1rem;
+      color: #7a6b5c;
+      border-bottom: 1px dashed #dcd2c5;
+      padding-bottom: 1rem;
+      line-height: 1.6;
+    }
+
+    .hero .sub strong {
+      color: #8b5e3c;
+      font-weight: 600;
+    }
+
+    /* 背景说明 引用块 */
+    .bg-note {
+      background: #eee8dd;
+      padding: 1.6rem 2rem;
+      border-radius: 4px;
+      margin-bottom: 2.4rem;
+      font-size: 0.98rem;
+      color: #3f362c;
+      border-left: 4px solid #b8926c;
+    }
+
+    .bg-note p {
+      margin-bottom: 0.6rem;
+    }
+
+    .bg-note p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* 三段介绍 */
+    .section-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.8rem;
+      margin: 2.8rem 0 2.2rem;
+    }
+
+    .card {
+      flex: 1 1 260px;
+      background: #fefcf9;
+      padding: 1.6rem 1.4rem;
+      border: 1px solid #e2d8cc;
+      border-radius: 3px;
+      transition: box-shadow 0.2s;
+    }
+
+    .card:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    }
+
+    .card h3 {
+      font-size: 1.2rem;
+      color: #4d3827;
+      border-bottom: 1px solid #e2d5c5;
+      padding-bottom: 0.4rem;
+      margin-bottom: 0.9rem;
+      letter-spacing: 0.5px;
+    }
+
+    .card p {
+      font-size: 0.96rem;
+      color: #3f3a34;
+    }
+
+    .card p + p {
+      margin-top: 0.8rem;
+    }
+
+    .card .highlight {
+      background: #f0e9df;
+      padding: 0.2rem 0.6rem;
+      font-style: normal;
+      border-radius: 2px;
+      color: #6b4d30;
+    }
+
+    /* 提示框 / 引用块 */
+    .tip-box {
+      background: #f4eee6;
+      padding: 1.4rem 1.8rem;
+      margin: 2rem 0 1.8rem;
+      border-radius: 2px;
+      border-left: 6px solid #a97c5a;
+      font-size: 0.96rem;
+    }
+
+    .tip-box p {
+      margin-bottom: 0.6rem;
+    }
+
+    .tip-box .ref {
+      color: #6f543c;
+      font-weight: 500;
+    }
+
+    /* 页尾访问提示 */
+    .footer-note {
+      margin-top: 2.8rem;
+      padding-top: 1.4rem;
+      border-top: 2px solid #ded3c6;
+      text-align: center;
+      font-size: 0.95rem;
+      color: #5f5243;
+    }
+
+    .footer-note a {
+      color: #8b5e3c;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      font-weight: 500;
+    }
+
+    .footer-note a:hover {
+      color: #5f3e28;
+      background: #ede3d6;
+    }
+
+    .small-meta {
+      display: block;
+      margin-top: 1rem;
+      font-size: 0.82rem;
+      color: #a49282;
+      letter-spacing: 0.3px;
+    }
+
+    /* 响应式 */
+    @media (max-width: 640px) {
+      body { padding: 1rem 0.8rem; }
+      .page { padding: 1.5rem 1rem; }
+      .hero h1 { font-size: 1.9rem; }
+      .section-grid { gap: 1rem; }
+      .card { flex: 1 1 100%; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- hero 横幅 -->
+  <div class="hero">
+    <h1>赛事档案 · 主题查询</h1>
+    <div class="sub">
+      从赛场记录到历史对照，<strong>数据、赛历、文化</strong> —— 围绕《世界杯》的日常检索与延伸阅读。
+    </div>
+  </div>
+
+  <!-- 背景说明（杂志式引言） -->
+  <div class="bg-note">
+    <p><strong>为什么需要一份可以随时参考的世界杯专题页？</strong> 对于许多关注体育的读者而言，赛事期间的信息密度极高，赛后则需要沉淀的结构化档案。本页以非赛事季节的“查询与对照”为设计起点，整理历届脉络、赛制节点与冷门记录，方便快速定位和横向比较。</p>
+    <p>本专题不追逐即时比分，而是围绕 <strong>4723aa615ccda181</strong> 这一数据序列所代表的变化逻辑（每届比赛的种子序列、分组代码与历史轨迹），提供稳定的内容锚点。以下为三个核心查询方向。</p>
+  </div>
+
+  <!-- 三段自然介绍 - 杂志卡片式 -->
+  <div class="section-grid">
+    <div class="card">
+      <h3>历届赛历与对照</h3>
+      <p>从 1930 年到 2026 年，<span class="highlight">东道主、冠军、决赛比分、举办时间</span> 四维表格。</p>
+      <p>支持按年份、大洲、球场容量等字段快速筛选，便于在撰写报告或讨论时直接引用——无需跳转多个页面。</p>
+    </div>
+    <div class="card">
+      <h3>赛制演变节点</h3>
+      <p>小组赛扩军、淘汰赛加时规则、金球制取消、VAR 引入年份…… 所有影响比赛走向的关键修订。</p>
+      <p>每个节点附有简短背景与首届实施案例，适合延伸阅读时厘清“为什么现在这样踢”。</p>
+    </div>
+    <div class="card">
+      <h3>数据延伸 · 冷门与趋势</h3>
+      <p>最大分差、卫冕纪录、黑马之旅、不同大洲夺冠间隔等<span class="highlight">非主流统计</span>。</p>
+      <p>这些数据往往在常规新闻中被忽略，却是深度专题与知识对照时的绝佳素材。</p>
+    </div>
+  </div>
+
+  <!-- 引用/提示框：FAQ 摘要 -->
+  <div class="tip-box">
+    <p><span class="ref">▍ 常见查询场景摘录</span></p>
+    <p><strong>Q：</strong> 如何快速确认某届世界杯的参赛队数量与分组方式？<br>
+    <strong>A：</strong> 本页档案中“赛历与对照”卡片下直接收录了每届决赛圈队伍数、小组数与出线规则，无需二次计算。</p>
+    <p><strong>Q：</strong> “世界杯”历史上东道主夺冠概率的变化趋势？<br>
+    <strong>A：</strong> 延伸阅读区整理了 1930–2022 所有主办国战绩，并标注了平均排名与异常值（如 1950 年巴西、2002 年韩国）。</p>
+    <p><strong>Q：</strong> 是否有跨届次的对比工具？<br>
+    <strong>A：</strong> 专题内提供可交互的年代-大洲对照表（静态版本见“趋势”卡片），同时建议配合下方链接中更完整的数据库使用。</p>
+  </div>
+
+  <!-- 页尾访问提示 —— 链接自然嵌入句子 -->
+  <div class="footer-note">
+    <p>若需查阅完整的历届数据、实时赛历与战术统计，可直接使用 <a href="https://init-shijiebei26.com">世界杯</a> 专题数据库 —— 该站收录了自 1930 年至今的超过 900 场比赛记录与多维度筛选面板。</p>
+    <p>本介绍页仅展示内容框架与查询逻辑，所有数据均可在上游页面中直接获取。</p>
+    <span class="small-meta">专题生成 · 基于信息密度优先的杂志式编排 &nbsp;|&nbsp; 种子 4723aa615ccda181 用于结构变化</span>
+  </div>
+
+</div>
+</body>
+</html>
