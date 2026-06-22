@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>世界杯 · 竞技与数据</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans SC', sans-serif;
+        }
+
+        body {
+            background: #f7fcff;
+            color: #163440;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Hero */
+        .hero {
+            padding: 64px 0 56px;
+            background: linear-gradient(145deg, #e7f4f7 0%, #d7eef5 100%);
+            border-bottom: 1px solid rgba(0, 150, 160, 0.08);
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            color: #0b383f;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span {
+            color: #008c9e;
+            display: inline-block;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: #1e4a55;
+            margin-bottom: 28px;
+            max-width: 480px;
+        }
+
+        .hero-visual {
+            background: #c5e3ea;
+            border-radius: 28px;
+            padding: 32px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            box-shadow: 0 8px 20px rgba(0, 100, 110, 0.08);
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(2px);
+            padding: 14px 18px;
+            border-radius: 18px;
+            border-left: 4px solid #1faabc;
+            font-weight: 500;
+        }
+
+        .stat-label {
+            color: #1a4f5a;
+        }
+
+        .stat-value {
+            color: #007a8c;
+            font-weight: 600;
+        }
+
+        .hero-link {
+            display: inline-block;
+            margin-top: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .hero-link a {
+            color: #007a8c;
+            text-decoration: none;
+            border-bottom: 2px solid #7fcbd7;
+            padding-bottom: 2px;
+            transition: border-color 0.2s;
+        }
+
+        .hero-link a:hover {
+            border-bottom-color: #004e5c;
+            color: #004e5c;
+        }
+
+        /* 通用区块 */
+        section {
+            padding: 56px 0;
+        }
+
+        .section-title {
+            font-size: 1.9rem;
+            font-weight: 650;
+            color: #124049;
+            margin-bottom: 32px;
+            letter-spacing: -0.01em;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 48px;
+            height: 4px;
+            background: #3dc1d0;
+            border-radius: 4px;
+            margin-top: 8px;
+        }
+
+        /* 优势区 — 网格卡片 */
+        .advantage-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 24px;
+            padding: 28px 20px 24px;
+            box-shadow: 0 4px 16px rgba(0, 120, 130, 0.06);
+            border: 1px solid #deedf2;
+            transition: transform 0.2s ease, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 28px rgba(0, 110, 120, 0.10);
+            border-color: #aad3dc;
+        }
+
+        .card-icon {
+            background: #daf0f5;
+            width: 48px;
+            height: 48px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            margin-bottom: 16px;
+            color: #006d7e;
+        }
+
+        .card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #103b43;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: #2a5661;
+            font-size: 0.95rem;
+        }
+
+        /* 说明区 (两栏) */
+        .explain-wrap {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 36px;
+            background: #eaf6fa;
+            border-radius: 32px;
+            padding: 40px 36px;
+        }
+
+        .explain-block h4 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #08363f;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .explain-block p {
+            color: #1d4c57;
+            margin-bottom: 14px;
+            font-size: 0.98rem;
+        }
+
+        .explain-block a {
+            color: #007a8c;
+            font-weight: 500;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            text-decoration-color: #9bd3de;
+        }
+
+        /* FAQ 摘要 */
+        .faq-summary {
+            background: white;
+            border-radius: 28px;
+            padding: 32px 30px;
+            border: 1px solid #d4e8ed;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #e2eff3;
+            padding: 18px 0;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-q {
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: #0b3f48;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .faq-q::before {
+            content: '◈';
+            color: #33b7c7;
+            font-size: 1.1rem;
+        }
+
+        .faq-a {
+            color: #2a5a64;
+            padding-left: 28px;
+            margin-top: 8px;
+            font-size: 0.96rem;
+        }
+
+        .faq-cta {
+            margin-top: 24px;
+            font-size: 1rem;
+        }
+
+        .faq-cta a {
+            color: #007486;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        /* 底部 */
+        .site-footer {
+            margin-top: 20px;
+            padding: 36px 0 28px;
+            border-top: 1px solid #d1e3e9;
+            text-align: center;
+            color: #386a75;
+            font-size: 0.9rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 28px;
+            flex-wrap: wrap;
+            margin-bottom: 14px;
+        }
+
+        .footer-links a {
+            color: #006f80;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px solid transparent;
+        }
+
+        .footer-links a:hover {
+            border-bottom-color: #008c9e;
+        }
+
+        /* 响应式 */
+        @media (max-width: 860px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 28px;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .advantage-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .explain-wrap {
+                grid-template-columns: 1fr;
+                padding: 28px 20px;
+            }
+        }
+
+        @media (max-width: 540px) {
+            .hero {
+                padding: 44px 0 36px;
+            }
+
+            .hero h1 {
+                font-size: 1.9rem;
+            }
+
+            .advantage-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 1.6rem;
+            }
+
+            .container {
+                padding: 0 16px;
+            }
+
+            .faq-summary {
+                padding: 22px 16px;
+            }
+
+            .stat-row {
+                flex-direction: column;
+                gap: 2px;
+                padding: 12px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header class="hero">
+    <div class="container hero-grid">
+        <div>
+            <h1>每一届 <span>世界杯</span> 都是一部微缩史</h1>
+            <p>从赛程、阵容到赛场内外，足球殿堂的数据与故事从未如此清晰。我们为你整理跨越数十年的竞技脉络。</p>
+            <div class="hero-link">
+                深入理解 <a href="https://h5-nacup26.com">世界杯</a> 的战术演变与统计维度。
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="stat-row">
+                <span class="stat-label">🏆 赛事届数</span>
+                <span class="stat-value">22 届</span>
+            </div>
+            <div class="stat-row">
+                <span class="stat-label">⚽ 总进球数 (截至上届)</span>
+                <span class="stat-value">2,720+</span>
+            </div>
+            <div class="stat-row">
+                <span class="stat-label">🌍 参赛国家/地区</span>
+                <span class="stat-value">80+ 历史代表队</span>
+            </div>
+        </div>
+    </div>
+</header>
+
+<section>
+    <div class="container">
+        <h2 class="section-title">数据透镜下的关键优势</h2>
+        <div class="advantage-grid">
+            <div class="card">
+                <div class="card-icon">📊</div>
+                <h3>结构化赛历</h3>
+                <p>小组赛、淘汰赛时间线清晰，按轮次分阶段呈现，方便复盘或前瞻。</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🧩</div>
+                <h3>阵容与纪录</h3>
+                <p>历届最佳射手、助攻、出场次数等核心统计，用数据串联每一届的锋芒。</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🌐</div>
+                <h3>跨届对比</h3>
+                <p>不同年代同位置球员、球队胜率、主场表现等维度一键对照，发现隐藏规律。</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">📁</div>
+                <h3>专题汇总</h3>
+                <p>淘汰赛经典对决、冷门纪实、卫冕之路…… 每届赛事都有独立档案夹。</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🔍</div>
+                <h3>筛选与检索</h3>
+                <p>按年份、小组、球队或球员快速定位，信息获取效率大幅提升。</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">📱</div>
+                <h3>移动优先适配</h3>
+                <p>无论手机或平板，卡片式布局自动调整，赛事数据一手掌握。</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section style="padding-top: 0;">
+    <div class="container explain-wrap">
+        <div class="explain-block">
+            <h4>📌 从历史中理解赛制迭代</h4>
+            <p>1930 年至今，世界杯的参赛规模、小组规则、淘汰赛加时制度经历了多次修正。通过界面内的“届次档案”可以逐届查看赛制变化，并关联当年关键比赛。</p>
+            <p>比如 1982 年扩军至 24 队、1998 年增至 32 队，以及未来的 48 队改制——这些节点都直接影响了竞争格局。</p>
+        </div>
+        <div class="explain-block">
+            <h4>⚡ 场景示例：备战讨论或内容挖掘</h4>
+            <p>媒体工作者、足球爱好者、数据分析爱好者都可以利用 <a href="https://h5-nacup26.com">世界杯</a> 信息库快速调取资料——不论是想查某一届的黑马奇迹，还是对比两代球星的进球效率。</p>
+            <p>页面内嵌的筛选工具支持多条件组合，让信息查找回归直觉。</p>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="container">
+        <h2 class="section-title">常见疑问摘要</h2>
+        <div class="faq-summary">
+            <div class="faq-item">
+                <div class="faq-q">收录了哪些年代的数据？</div>
+                <div class="faq-a">从 1930 年首届到最近一届，每届世界杯的基础赛程、小组积分、淘汰赛对阵以及冠军信息均已完成结构化整理。</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">是否包含女足世界杯？</div>
+                <div class="faq-a">目前本版以男子世界杯为主，女足世界杯专题已在筹备中，后续将作为独立模块上线。</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">数据更新频率如何？</div>
+                <div class="faq-a">核心静态历史数据（完结届次）一次性入库；预选赛、抽签等动态信息视官方进度保持同步，通常不超过 48 小时。</div>
+            </div>
+            <div class="faq-cta">
+                更多细节与说明，可访问 <a href="https://h5-nacup26.com">世界杯</a> 页面内“帮助与数据源”部分。
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-links">
+            <a href="https://h5-nacup26.com">世界杯</a>
+            <a href="#">数据说明</a>
+            <a href="#">关于项目</a>
+        </div>
+        <p>基于公开赛事资料整理 · 仅用作信息参考与知识分享</p>
+        <p style="margin-top: 6px; opacity: 0.7;">非官方页面 · 与任何体育组织无关</p>
+    </div>
+</footer>
+
+</body>
+</html>
